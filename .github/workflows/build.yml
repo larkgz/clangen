@@ -127,17 +127,17 @@ jobs:
             api-artifact: win10+
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: 1.4.1
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "${{ matrix.python-version }}"
           architecture: "${{ matrix.architecture }}"
-          cache: "poetry"
+          cache: ${{ matrix.architecture == 'x86' && '' || 'poetry' }}
+      - uses: actions/checkout@v3
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: 1.4.1
       - name: Set up cargo cache
         uses: actions/cache@v3
         continue-on-error: false
