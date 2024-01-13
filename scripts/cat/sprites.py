@@ -4,6 +4,21 @@ import ujson
 
 from scripts.game_structure.game_essentials import game
 
+class _SpriteCache:
+    """
+    Cache for lazy loading sprites.
+    """
+    def __init__(self):
+        self.cache = {}
+
+    def __getitem__(self, key):
+        if key not in self.cache:
+            self.cache[key] = pygame.image.load(f"split_sprites/{key}.png")
+        return self.cache[key]
+    
+    def __setitem__(self, key, value):
+        self.cache[key] = value
+
 class Sprites():
     cat_tints = {}
     white_patches_tints = {}
@@ -16,7 +31,7 @@ class Sprites():
         self.size = None
         self.spritesheets = {}
         self.images = {}
-        self.sprites = {}
+        self.sprites = _SpriteCache()
 
         # Shared empty sprite for placeholders
         self.blank_sprite = None
@@ -88,6 +103,7 @@ class Sprites():
                         )
                     new_sprite = self.blank_sprite
                 self.sprites[f'{name}{i}'] = new_sprite
+                # pygame.image.save(new_sprite, f'split_sprites/{name}{i}.png')
                 i += 1
 
     def load_all(self):
