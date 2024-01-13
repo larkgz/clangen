@@ -15,7 +15,7 @@ class _SpriteCache:
         if key not in self.cache:
             self.cache[key] = pygame.image.load(f"split_sprites/{key}.png")
         return self.cache[key]
-    
+
     def __setitem__(self, key, value):
         self.cache[key] = value
 
