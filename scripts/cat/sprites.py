@@ -13,7 +13,11 @@ class _SpriteCache:
 
     def __getitem__(self, key):
         if key not in self.cache:
-            self.cache[key] = pygame.image.load(f"split_sprites/{key}.png")
+            try:
+                self.cache[key] = pygame.image.load(f"split_sprites/{key}.png")
+            except FileNotFoundError as exc:
+                # same behaviour for sprites that don't exist
+                raise KeyError from exc
         return self.cache[key]
 
     def __setitem__(self, key, value):
