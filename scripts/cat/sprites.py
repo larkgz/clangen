@@ -1,9 +1,14 @@
 import pygame
 
 import ujson
+from dataclasses import dataclass
 
 from scripts.game_structure.game_essentials import game
 
+@dataclass
+class _SpritesheetInfo:
+    path: str
+    surface: pygame.surface.Surface
 class _SpriteCache:
     """
     Cache for lazy loading sprites.
@@ -63,7 +68,8 @@ class Sprites():
         a_file -- Path to the file to create a spritesheet from.
         name -- Name to call the new spritesheet.
         """
-        self.spritesheets[name] = pygame.image.load(a_file).convert_alpha()
+        self.spritesheets[name] = _SpritesheetInfo(
+            a_file,pygame.image.load(a_file).convert_alpha())
 
     def make_group(self,
                    spritesheet,
@@ -93,7 +99,7 @@ class Sprites():
             for x in range(sprites_x):
                 try:
                     new_sprite = pygame.Surface.subsurface(
-                        self.spritesheets[spritesheet],
+                        self.spritesheets[spritesheet].surface,
                         group_x_ofs + x * self.size,
                         group_y_ofs + y * self.size,
                         self.size, self.size
