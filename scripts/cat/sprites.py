@@ -1,5 +1,6 @@
 import pygame
 
+import os
 import ujson
 from dataclasses import dataclass
 
@@ -7,7 +8,7 @@ from scripts.game_structure.game_essentials import game
 
 @dataclass
 class _SpritesheetInfo:
-    path: str
+    name: str
     surface: pygame.surface.Surface
 class _SpriteCache:
     """
@@ -40,10 +41,13 @@ class Sprites():
         self.size = None
         self.spritesheets = {}
         self.images = {}
-        self.sprites = _SpriteCache()
+        self.sprites = {}
 
         # Shared empty sprite for placeholders
         self.blank_sprite = None
+
+        # Currently loaded spritesheet
+        self.current_spritesheet = None
         
         self.load_tints()
 
@@ -68,8 +72,7 @@ class Sprites():
         a_file -- Path to the file to create a spritesheet from.
         name -- Name to call the new spritesheet.
         """
-        self.spritesheets[name] = _SpritesheetInfo(
-            a_file,pygame.image.load(a_file).convert_alpha())
+        self.spritesheets[name] = a_file
 
     def make_group(self,
                    spritesheet,
@@ -94,26 +97,31 @@ class Sprites():
         group_y_ofs = pos[1] * sprites_y * self.size
         i = 0
 
+        filename = self.spritesheets[spritesheet]
+        if (not self.current_spritesheet or self.current_spritesheet[0] != spritesheet):
+            self.current_spritesheet = (spritesheet, pygame.image.load(filename))
+
         # splitting group into singular sprites and storing into self.sprites section
         for y in range(sprites_y):
             for x in range(sprites_x):
-                try:
-                    new_sprite = pygame.Surface.subsurface(
-                        self.spritesheets[spritesheet].surface,
-                        group_x_ofs + x * self.size,
-                        group_y_ofs + y * self.size,
-                        self.size, self.size
-                    )
-                except ValueError:
-                    # Fallback for non-existent sprites
-                    if not self.blank_sprite:
-                        self.blank_sprite = pygame.Surface(
-                            (self.size, self.size),
-                            pygame.HWSURFACE | pygame.SRCALPHA
+                if (os.path.exists(os.path.exists(f'split_sprites/{name}{i}.png')) and
+                    os.path.getmtime(f'split_sprites/{name}{i}.png') < os.path.getmtime(filename)):
+                    try:
+                        new_sprite = pygame.Surface.subsurface(
+                            self.current_spritesheet[1],
+                            group_x_ofs + x * self.size,
+                            group_y_ofs + y * self.size,
+                            self.size, self.size
                         )
-                    new_sprite = self.blank_sprite
-                self.sprites[f'{name}{i}'] = new_sprite
-                # pygame.image.save(new_sprite, f'split_sprites/{name}{i}.png')
+                    except ValueError:
+                        # Fallback for non-existent sprites
+                        if not self.blank_sprite:
+                            self.blank_sprite = pygame.Surface(
+                                (self.size, self.size),
+                                pygame.HWSURFACE | pygame.SRCALPHA
+                            )
+                        new_sprite = self.blank_sprite
+                    pygame.image.save(new_sprite, f'split_sprites/{name}{i}.png')
                 i += 1
 
     def load_all(self):
