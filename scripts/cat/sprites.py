@@ -102,7 +102,8 @@ class Sprites():
         # splitting group into singular sprites and storing into self.sprites section
         for y in range(sprites_y):
             for x in range(sprites_x):
-                if (not os.path.exists(os.path.exists(f'split_sprites/{name}{i}.png')) or
+                # only run if split sprite doesn't exist or if it's older than existing spritesheets
+                if (not os.path.exists(f'split_sprites/{name}{i}.png') or
                     os.path.getmtime(f'split_sprites/{name}{i}.png') < os.path.getmtime(filename)):
                     try:
                         # Load spritesheet
