@@ -98,8 +98,6 @@ class Sprites():
         i = 0
 
         filename = self.spritesheets[spritesheet]
-        if (not self.current_spritesheet or self.current_spritesheet[0] != spritesheet):
-            self.current_spritesheet = (spritesheet, pygame.image.load(filename))
 
         # splitting group into singular sprites and storing into self.sprites section
         for y in range(sprites_y):
@@ -107,6 +105,11 @@ class Sprites():
                 if (not os.path.exists(os.path.exists(f'split_sprites/{name}{i}.png')) or
                     os.path.getmtime(f'split_sprites/{name}{i}.png') < os.path.getmtime(filename)):
                     try:
+                        # Load spritesheet
+                        if (not self.current_spritesheet or
+                                self.current_spritesheet[0] != spritesheet):
+                            self.current_spritesheet = (spritesheet, pygame.image.load(filename))
+
                         new_sprite = pygame.Surface.subsurface(
                             self.current_spritesheet[1],
                             group_x_ofs + x * self.size,
