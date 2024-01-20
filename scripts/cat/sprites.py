@@ -5,11 +5,6 @@ import ujson
 from dataclasses import dataclass
 
 from scripts.game_structure.game_essentials import game
-
-@dataclass
-class _SpritesheetInfo:
-    name: str
-    surface: pygame.surface.Surface
 class _SpriteCache:
     """
     Cache for lazy loading sprites.
