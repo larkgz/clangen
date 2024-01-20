@@ -93,6 +93,9 @@ class Sprites():
         i = 0
 
         filename = self.spritesheets[spritesheet]
+        # don't run at all if the originals don't exist anymore
+        if not os.path.exists(filename):
+            return
 
         # splitting group into singular sprites and storing into self.sprites section
         for y in range(sprites_y):
