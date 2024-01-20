@@ -41,7 +41,7 @@ class Sprites():
         self.size = None
         self.spritesheets = {}
         self.images = {}
-        self.sprites = {}
+        self.sprites = _SpriteCache()
 
         # Shared empty sprite for placeholders
         self.blank_sprite = None
