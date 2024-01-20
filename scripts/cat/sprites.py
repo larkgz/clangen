@@ -103,8 +103,8 @@ class Sprites():
         for y in range(sprites_y):
             for x in range(sprites_x):
                 # only run if split sprite doesn't exist or if it's older than existing spritesheets
-                if (not os.path.exists(f'split_sprites/{name}{i}.png') or
-                    os.path.getmtime(f'split_sprites/{name}{i}.png') < os.path.getmtime(filename)):
+                if (not os.path.exists(f'sprites/split/{name}{i}.png') or
+                    os.path.getmtime(f'sprites/split/{name}{i}.png') < os.path.getmtime(filename)):
                     try:
                         # Load spritesheet
                         if (not self.current_spritesheet or
@@ -125,7 +125,7 @@ class Sprites():
                                 pygame.HWSURFACE | pygame.SRCALPHA
                             )
                         new_sprite = self.blank_sprite
-                    pygame.image.save(new_sprite, f'split_sprites/{name}{i}.png')
+                    pygame.image.save(new_sprite, f'sprites/split/{name}{i}.png')
                 i += 1
 
     def load_all(self):

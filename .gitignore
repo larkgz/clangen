@@ -166,6 +166,7 @@ scripts/__pycache__/**
 /__pycache__/
 .idea/
 
+sprites/split
 
 saves/currentclan.txt
 
