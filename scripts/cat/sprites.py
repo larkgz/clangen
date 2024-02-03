@@ -2,7 +2,6 @@ import pygame
 
 import os
 import ujson
-from dataclasses import dataclass
 
 from scripts.game_structure.game_essentials import game
 class _SpriteCache:
