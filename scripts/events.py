@@ -33,7 +33,6 @@ from scripts.utility import get_alive_kits, get_med_cats, ceremony_text_adjust, 
     get_current_season, adjust_list_text, ongoing_event_text_adjust, event_text_adjust
 from scripts.events_module.generate_events import GenerateEvents
 from scripts.events_module.relationship.pregnancy_events import Pregnancy_Events
-from scripts.game_structure.windows import SaveError
 
 class Events:
     """
@@ -236,7 +235,7 @@ class Events:
                 game.clan.save_pregnancy(game.clan)
                 game.save_events()
             except:
-                SaveError(traceback.format_exc())
+                traceback.format_exc()
 
     def mediator_events(self, cat):
         """ Check for mediator events """
