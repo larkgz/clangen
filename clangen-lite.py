@@ -40,5 +40,3 @@ if __name__ == "__main__":
                 game.switches[
                     'error_message'] = 'There was an error loading the cats file!'
                 game.switches['traceback'] = e
-
-
