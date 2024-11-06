@@ -4,6 +4,9 @@ from random import choice
 
 import json
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Thoughts():
     @staticmethod
     def thought_fulfill_rel_constraints(main_cat, random_cat, constraint) -> bool:
@@ -112,7 +115,7 @@ class Thoughts():
                 spli = _skill.split(",")
                 
                 if len(spli) != 2:
-                    print("Throught constraint not properly formated", _skill)
+                    logger.warning("Throught constraint not properly formated %s", _skill)
                     continue
                 
                 if main_cat.skills.meets_skill_requirement(spli[0], int(spli[1])):
@@ -128,7 +131,7 @@ class Thoughts():
                 spli = _skill.split(",")
                 
                 if len(spli) != 2:
-                    print("Throught constraint not properly formated", _skill)
+                    logger.warning("Throught constraint not properly formated %s", _skill)
                     continue
                 
                 if random_cat.skills.meets_skill_requirement(spli[0], spli[1]):
