@@ -3,7 +3,7 @@ import pygame_gui
 
 from scripts.housekeeping.datadir import get_save_dir, get_temp_dir
 
-import ujson
+import json
 import os
 from shutil import move as shutil_move
 from ast import literal_eval
@@ -154,7 +154,7 @@ class Game():
 
     # Init Settings
     with open("resources/gamesettings.json", 'r') as read_file:
-        _settings = ujson.loads(read_file.read())
+        _settings = json.loads(read_file.read())
 
     for setting, values in _settings['__other'].items():
         settings[setting] = values[0]
@@ -190,10 +190,10 @@ class Game():
         self.switch_screens = False
 
         with open(f"resources/game_config.json", 'r') as read_file:
-            self.config = ujson.loads(read_file.read())
+            self.config = json.loads(read_file.read())
 
         with open(f"resources/prey_config.json", 'r') as read_file:
-            self.prey_config = ujson.loads(read_file.read())
+            self.prey_config = json.loads(read_file.read())
 
         if self.config['fun']['april_fools']:
             self.config['fun']['newborns_can_roam'] = True
@@ -216,7 +216,7 @@ class Game():
 
         # If write_data is not a string,
         if type(write_data) is not str:
-            _data = ujson.dumps(write_data, indent=4)
+            _data = json.dumps(write_data, indent=4)
         else:
             _data = write_data
 
@@ -352,7 +352,7 @@ class Game():
         
         try:
             with open(get_save_dir() + '/settings.json', 'r') as read_file:
-                settings_data = ujson.loads(read_file.read())
+                settings_data = json.loads(read_file.read())
         except FileNotFoundError:
             return
 
@@ -466,7 +466,7 @@ class Game():
 
             # Get a copy of info
             if game.clan.clan_settings["save_faded_copy"]:
-                copy_of_info += ujson.dumps(inter_cat.get_save_dict(), indent=4) + \
+                copy_of_info += json.dumps(inter_cat.get_save_dict(), indent=4) + \
                     "\n--------------------------------------------------------------------------\n"
 
             # SAVE TO IT'S OWN LITTLE FILE. This is a trimmed-down version for relation keeping only.
@@ -510,7 +510,7 @@ class Game():
         both active and faded cat's faded offpsring. This will add a faded offspring to a faded parents file. """
         try:
             with open(get_save_dir() + '/' + self.clan.name + '/faded_cats/' + parent + ".json", 'r') as read_file:
-                cat_info = ujson.loads(read_file.read())
+                cat_info = json.loads(read_file.read())
         except:
             print("ERROR: loading faded cat")
             return False
@@ -532,7 +532,7 @@ class Game():
         events_list = []
         try:
             with open(events_path, 'r') as f:
-                events_list = ujson.loads(f.read())
+                events_list = json.loads(f.read())
             for event_dict in events_list:
                 event_obj = Single_Event.from_dict(event_dict)
                 if event_obj:

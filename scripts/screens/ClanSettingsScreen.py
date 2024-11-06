@@ -7,7 +7,7 @@ import logging
 
 import pygame
 import pygame_gui
-import ujson
+import json
 
 from scripts.cat.cats import Cat
 from scripts.game_structure.game_essentials import game, screen_x, screen_y, MANAGER
@@ -21,7 +21,7 @@ from ..housekeeping.version import get_version_info
 logger = logging.getLogger(__name__)
 
 with open('resources/clansettings.json', 'r', encoding='utf-8') as f:
-    settings_dict = ujson.load(f)
+    settings_dict = json.load(f)
 
 class ClanSettingsScreen(Screens):
     """

@@ -3,7 +3,7 @@ from copy import deepcopy
 from random import choice
 import random
 
-import ujson
+import json
 
 from scripts.cat.history import History
 from scripts.utility import (
@@ -34,11 +34,11 @@ class Romantic_Events():
 
     MATE_DICTS = None
     with open(f"{resource_directory}become_mates.json", 'r') as read_file:
-        MATE_DICTS = ujson.loads(read_file.read())
+        MATE_DICTS = json.loads(read_file.read())
 
     POLY_MATE_DICTS = None
     with open(f"{resource_directory}become_mates_poly.json", 'r') as read_file:
-        POLY_MATE_DICTS = ujson.loads(read_file.read())
+        POLY_MATE_DICTS = json.loads(read_file.read())
 
     # ---------------------------------------------------------------------------- #
     #            build up dictionaries which can be used for moon events           #

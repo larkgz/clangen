@@ -9,7 +9,7 @@ from ..cat.history import History
 from ..housekeeping.datadir import get_save_dir
 from ..game_structure.windows import ChangeCatName, SpecifyCatGender, KillCat, ChangeCatToggles
 
-import ujson
+import json
 
 from scripts.utility import event_text_adjust, scale, ACC_DISPLAY, process_text, chunks
 
@@ -1039,7 +1039,7 @@ class ProfileScreen(Screens):
 
         try:
             with open(notes_file_path, 'r') as read_file:
-                rel_data = ujson.loads(read_file.read())
+                rel_data = json.loads(read_file.read())
                 self.user_notes = 'Click the check mark to enter notes about your cat!'
                 if str(self.the_cat.ID) in rel_data:
                     self.user_notes = rel_data.get(str(self.the_cat.ID))

@@ -25,7 +25,7 @@ from importlib.util import find_spec
 
 if not getattr(sys, 'frozen', False):
     requiredModules = [
-        "ujson",
+        "json",
         "pygame",
         "pygame_gui",
         "platformdirs",

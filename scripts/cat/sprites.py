@@ -1,6 +1,6 @@
 import pygame
 
-import ujson
+import json
 
 from scripts.game_structure.game_essentials import game
 
@@ -26,13 +26,13 @@ class Sprites():
     def load_tints(self):
         try:
             with open("sprites/dicts/tint.json", 'r') as read_file:
-                self.cat_tints = ujson.loads(read_file.read())
+                self.cat_tints = json.loads(read_file.read())
         except:
             print("ERROR: Reading Tints")
 
         try:
             with open("sprites/dicts/white_patches_tint.json", 'r') as read_file:
-                self.white_patches_tints = ujson.loads(read_file.read())
+                self.white_patches_tints = json.loads(read_file.read())
         except:
             print("ERROR: Reading White Patches Tints")
             

@@ -10,7 +10,7 @@ from .skills import CatSkills
 from ..housekeeping.datadir import get_save_dir
 from ..events_module.generate_events import GenerateEvents
 
-import ujson
+import json
 
 from .names import Name
 from .pelts import Pelt
@@ -898,7 +898,7 @@ class Cat():
             return
         try:
             with open(cat_history_directory, 'r') as read_file:
-                history_data = ujson.loads(read_file.read())
+                history_data = json.loads(read_file.read())
                 self.history = History(
                     beginning=history_data["beginning"] if "beginning" in history_data else {},
                     mentor_influence=history_data[
@@ -1940,7 +1940,7 @@ class Cat():
 
         try:
             with open(condition_cat_directory, 'r') as read_file:
-                rel_data = ujson.loads(read_file.read())
+                rel_data = json.loads(read_file.read())
                 self.illnesses = rel_data.get("illnesses", {})
                 self.injuries = rel_data.get("injuries", {})
                 self.permanent_condition = rel_data.get("permanent conditions", {})
@@ -2372,7 +2372,7 @@ class Cat():
                 return
             try:
                 with open(relation_cat_directory, 'r') as read_file:
-                    rel_data = ujson.loads(read_file.read())
+                    rel_data = json.loads(read_file.read())
                     for rel in rel_data:
                         cat_to = self.all_cats.get(rel['cat_to_id'])
                         if cat_to is None or rel['cat_to_id'] == self.ID:
@@ -2698,12 +2698,12 @@ class Cat():
             if game.clan != None: clan = game.clan.name
 
             with open(get_save_dir() + '/' + clan + '/faded_cats/' + cat + ".json", 'r') as read_file:
-                cat_info = ujson.loads(read_file.read())
+                cat_info = json.loads(read_file.read())
                                 # If loading cats is attempted before the Clan is loaded, we would need to use this.
         except AttributeError:  # NOPE, cats are always loaded before the Clan, so doesnt make sense to throw an error
             with open(get_save_dir() + '/' + game.switches['clan_list'][0] + '/faded_cats/' + cat + ".json",
                       'r') as read_file:
-                cat_info = ujson.loads(read_file.read())
+                cat_info = json.loads(read_file.read())
         except:
             print("ERROR: in loading faded cat")
             return False
@@ -2950,7 +2950,7 @@ class Personality():
     facet_range = [0, 16]
     
     with open("resources/dicts/traits/trait_ranges.json", "r") as read_file:
-        trait_ranges = ujson.loads(read_file.read())
+        trait_ranges = json.loads(read_file.read())
     
     def __init__(self, trait:str=None, kit_trait:bool=False, lawful:int=None, social:int=None, aggress:int=None, 
                  stable:int=None) -> Personality:
@@ -3216,24 +3216,24 @@ game.cat_class = cat_class
 resource_directory = "resources/dicts/conditions/"
 
 with open(f"{resource_directory}illnesses.json", 'r') as read_file:
-    ILLNESSES = ujson.loads(read_file.read())
+    ILLNESSES = json.loads(read_file.read())
 
 with open(f"{resource_directory}injuries.json", 'r') as read_file:
-    INJURIES = ujson.loads(read_file.read())
+    INJURIES = json.loads(read_file.read())
 
 with open(f"{resource_directory}permanent_conditions.json", 'r') as read_file:
-    PERMANENT = ujson.loads(read_file.read())
+    PERMANENT = json.loads(read_file.read())
 
 resource_directory = "resources/dicts/events/death/death_reactions/"
 
 with open(f"{resource_directory}minor_major.json", 'r') as read_file:
-    MINOR_MAJOR_REACTION = ujson.loads(read_file.read())
+    MINOR_MAJOR_REACTION = json.loads(read_file.read())
 
 with open(f"resources/dicts/lead_ceremony_sc.json", 'r') as read_file:
-    LEAD_CEREMONY_SC = ujson.loads(read_file.read())
+    LEAD_CEREMONY_SC = json.loads(read_file.read())
 
 with open(f"resources/dicts/lead_ceremony_df.json", 'r') as read_file:
-    LEAD_CEREMONY_DF = ujson.loads(read_file.read())
+    LEAD_CEREMONY_DF = json.loads(read_file.read())
 
 with open(f"resources/dicts/backstories.json", 'r') as read_file:
-    BACKSTORIES = ujson.loads(read_file.read())
+    BACKSTORIES = json.loads(read_file.read())

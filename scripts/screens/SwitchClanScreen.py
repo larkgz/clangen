@@ -6,7 +6,7 @@ import traceback
 
 import pygame
 import pygame_gui
-import ujson
+import json
 
 from scripts.cat.cats import Cat
 from scripts.clan import Clan

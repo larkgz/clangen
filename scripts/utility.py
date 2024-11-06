@@ -9,7 +9,7 @@ TODO: Docs
 from random import choice, choices, randint, random, sample
 import re
 import pygame
-import ujson
+import json
 import logging
 from sys import exit as sys_exit
 from typing import Dict
@@ -1425,19 +1425,19 @@ def quit(savesettings=False, clearevents=False):
 
 PERMANENT = None
 with open(f"resources/dicts/conditions/permanent_conditions.json", 'r') as read_file:
-    PERMANENT = ujson.loads(read_file.read())
+    PERMANENT = json.loads(read_file.read())
 
 ACC_DISPLAY = None
 with open(f"resources/dicts/acc_display.json", 'r') as read_file:
-    ACC_DISPLAY = ujson.loads(read_file.read())
+    ACC_DISPLAY = json.loads(read_file.read())
 
 SNIPPETS = None
 with open(f"resources/dicts/snippet_collections.json", 'r') as read_file:
-    SNIPPETS = ujson.loads(read_file.read())
+    SNIPPETS = json.loads(read_file.read())
 
 PREY_LISTS = None
 with open(f"resources/dicts/prey_text_replacements.json", 'r') as read_file:
-    PREY_LISTS = ujson.loads(read_file.read())
+    PREY_LISTS = json.loads(read_file.read())
 
 with open(f"resources/dicts/backstories.json", 'r') as read_file:
-    BACKSTORIES = ujson.loads(read_file.read())
+    BACKSTORIES = json.loads(read_file.read())

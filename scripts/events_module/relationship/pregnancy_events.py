@@ -16,7 +16,7 @@ from scripts.cat_relations.relationship import Relationship
 from scripts.events_module.condition_events import Condition_Events
 from scripts.cat.names import names, Name
 
-import ujson
+import json
 
 class Pregnancy_Events():
     """All events which are related to pregnancy such as kitting and defining who are the parents."""
@@ -25,7 +25,7 @@ class Pregnancy_Events():
     
     PREGNANT_STRINGS = None
     with open(f"resources/dicts/conditions/pregnancy.json", 'r') as read_file:
-        PREGNANT_STRINGS = ujson.loads(read_file.read())
+        PREGNANT_STRINGS = json.loads(read_file.read())
    
     @staticmethod
     def set_biggest_family():

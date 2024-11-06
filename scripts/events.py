@@ -13,7 +13,7 @@ import traceback
 from scripts.cat.history import History
 from scripts.patrol.patrol import Patrol
 
-import ujson
+import json
 
 from scripts.cat.cats import Cat, cat_class
 from scripts.clan import HERBS
@@ -836,7 +836,7 @@ class Events:
         resource_dir = "resources/dicts/events/"
         with open(f"{resource_dir}war.json",
                   encoding="ascii") as read_file:
-            self.WAR_TXT = ujson.loads(read_file.read())
+            self.WAR_TXT = json.loads(read_file.read())
 
     def check_war(self):
         """
@@ -1157,7 +1157,7 @@ class Events:
         resource_dir = "resources/dicts/events/ceremonies/"
         with open(f"{resource_dir}ceremony-master.json",
                   encoding="ascii") as read_file:
-            self.CEREMONY_TXT = ujson.loads(read_file.read())
+            self.CEREMONY_TXT = json.loads(read_file.read())
 
         self.ceremony_id_by_tag = {}
         # Sorting.
@@ -1348,7 +1348,7 @@ class Events:
             resource_dir = "resources/dicts/events/ceremonies/"
             with open(f"{resource_dir}ceremony_traits.json",
                       encoding="ascii") as read_file:
-                TRAITS = ujson.loads(read_file.read())
+                TRAITS = json.loads(read_file.read())
             try:
                 random_honor = random.choice(TRAITS[cat.personality.trait])
             except KeyError:

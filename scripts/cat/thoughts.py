@@ -2,7 +2,7 @@ import os
 import traceback
 from random import choice
 
-import ujson
+import json
 
 class Thoughts():
     @staticmethod
@@ -294,14 +294,14 @@ class Thoughts():
         # newborns only pull from their status thoughts. this is done for convenience
         if main_cat.age == 'newborn':
             with open(f"{base_path}{life_dir}{spec_dir}/newborn.json", 'r') as read_file:
-                THOUGHTS = ujson.loads(read_file.read())
+                THOUGHTS = json.loads(read_file.read())
             loaded_thoughts = THOUGHTS
         else:
             with open(f"{base_path}{life_dir}{spec_dir}/{status}.json", 'r') as read_file:
-                THOUGHTS = ujson.loads(read_file.read())
+                THOUGHTS = json.loads(read_file.read())
             GENTHOUGHTS = []
             with open(f"{base_path}{life_dir}{spec_dir}/general.json", 'r') as read_file:
-                GENTHOUGHTS = ujson.loads(read_file.read())
+                GENTHOUGHTS = json.loads(read_file.read())
             loaded_thoughts = THOUGHTS 
             loaded_thoughts += GENTHOUGHTS
         final_thoughts = Thoughts.create_thoughts(loaded_thoughts, main_cat, other_cat, game_mode, biome, season, camp)

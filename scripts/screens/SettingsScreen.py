@@ -7,7 +7,7 @@ import logging
 
 import pygame
 import pygame_gui
-import ujson
+import json
 
 from scripts.game_structure.discord_rpc import _DiscordRPC
 from scripts.game_structure.game_essentials import game, screen_x, screen_y, MANAGER
@@ -22,7 +22,7 @@ from ..housekeeping.version import get_version_info
 logger = logging.getLogger(__name__)
 
 with open('resources/gamesettings.json', 'r', encoding='utf-8') as f:
-    settings_dict = ujson.load(f)
+    settings_dict = json.load(f)
 
 class SettingsScreen(Screens):
     """
@@ -56,7 +56,7 @@ class SettingsScreen(Screens):
     info_text = ""
     tooltip_text = []
     with open('resources/credits_text.json', 'r', encoding='utf-8') as f:
-        credits_text = ujson.load(f)
+        credits_text = json.load(f)
     for string in credits_text["text"]:
         if string == "{contrib}":
             for contributor in credits_text["contrib"]:

@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-import ujson
+import json
 
 from .Screens import Screens
 from scripts.cat.cats import Cat
@@ -10,7 +10,7 @@ from scripts.utility import get_text_box_theme, scale, shorten_text_to_fit
 from scripts.game_structure.game_essentials import game, screen_x, screen_y, MANAGER
 
 with open('resources/clansettings.json', 'r', encoding='utf-8') as f:
-    settings_dict = ujson.load(f)
+    settings_dict = json.load(f)
 
 class ClearingScreen(Screens):
     cat_buttons = {}

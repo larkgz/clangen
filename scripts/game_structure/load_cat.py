@@ -6,7 +6,7 @@ from ..cat.history import History
 from ..cat.skills import CatSkills
 from ..housekeeping.datadir import get_save_dir
 
-import ujson
+import json
 
 from re import sub
 from scripts.cat.pelts import Pelt
@@ -37,15 +37,15 @@ def json_load():
     clanname = game.switches['clan_list'][0]
     clan_cats_json_path = f'{get_save_dir()}/{clanname}/clan_cats.json'
     with open(f"resources/dicts/conversion_dict.json", 'r') as read_file:
-        convert = ujson.loads(read_file.read())
+        convert = json.loads(read_file.read())
     try:
         with open(clan_cats_json_path, 'r') as read_file:
-            cat_data = ujson.loads(read_file.read())
+            cat_data = json.loads(read_file.read())
     except PermissionError as e:
         game.switches['error_message'] = f'Can\t open {clan_cats_json_path}!'
         game.switches['traceback'] = e
         raise
-    except ujson.JSONDecodeError as e:
+    except json.JSONDecodeError as e:
         game.switches['error_message'] = f'{clan_cats_json_path} is malformed!'
         game.switches['traceback'] = e
         raise
