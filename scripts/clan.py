@@ -28,6 +28,8 @@ from scripts.clan_resources.freshkill import Freshkill_Pile, Nutrition
 from scripts.cat.sprites import sprites
 from sys import exit  # pylint: disable=redefined-builtin
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Clan():
     """
@@ -673,7 +675,7 @@ class Clan():
                 game.clan.add_cat(Cat.all_cats[cat])
                 game.clan.add_to_starclan(Cat.all_cats[cat])
             else:
-                print('WARNING: Cat not found:', cat)
+                logger.warning('WARNING: Cat not found:', cat)
         self.load_pregnancy(game.clan)
         game.switches['error_message'] = ''
 
@@ -764,7 +766,7 @@ class Clan():
                 game.clan.add_to_darkforest(Cat.all_cats[cat])
                 game.clan.add_to_unknown(Cat.all_cats[cat])
             else:
-                print('WARNING: Cat not found:', cat)
+                logger.warning('WARNING: Cat not found:', cat)
         if "war" in clan_data:
             game.clan.war = clan_data["war"]
 
