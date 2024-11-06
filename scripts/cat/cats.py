@@ -20,7 +20,7 @@ import bisect
 
 from scripts.utility import get_med_cats, get_personality_compatibility, event_text_adjust, update_sprite, \
     leader_ceremony_text_adjust
-from scripts.game_structure.game_essentials import game, screen
+from scripts.game_structure.game_essentials import game
 from scripts.cat_relations.relationship import Relationship
 from scripts.game_structure import image_cache
 from scripts.event_class import Single_Event
@@ -30,8 +30,7 @@ from scripts.cat_relations.inheritance import Inheritance
 
 class Cat():
     dead_cats = []
-    used_screen = screen
-    
+
     ages = [
         'newborn', 'kitten', 'adolescent', 'young adult', 'adult', 'senior adult',
         'senior'
