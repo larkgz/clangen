@@ -7,6 +7,18 @@ from scripts.game_structure.game_essentials import game
 from scripts.clan import clan_class
 from scripts.utility import quit  # pylint: disable=redefined-builtin
 
+# Advance one moon:
+#     events_class.one_moon()
+#
+# List of current events:
+#     game.cur_events_list
+#
+# Patrol:
+#     patrol_members: List[Cat] = []
+#     patrol_obj = Patrol()
+#     patrol_obj.setup_patrol(patrol_members, patrol_type)
+#     patrol_obj.proceed_patrol("proceed")
+
 if __name__ == "__main__":
     # initialize basic logging
     import logging
