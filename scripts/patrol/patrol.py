@@ -26,6 +26,9 @@ from scripts.patrol.patrol_outcome import PatrolOutcome
 from scripts.cat.cats import Cat
 from scripts.special_dates import get_special_date, contains_special_date_tag
 
+import logging
+logger = logging.getLogger(__name__)
+
 # ---------------------------------------------------------------------------- #
 #                              PATROL CLASS START                              #
 # ---------------------------------------------------------------------------- #
@@ -57,7 +60,7 @@ class Patrol():
     def setup_patrol(self, patrol_cats:List[Cat], patrol_type:str) -> str:
         # Add cats
         
-        print("PATROL START ---------------------------------------------------")
+        logger.info("PATROL START ---------------------------------------------------")
         
         self.add_patrol_cats(patrol_cats, game.clan)
         
@@ -68,12 +71,12 @@ class Patrol():
             game.settings.get('disasters')
         )
         
-        print(f'Total Number of Possible Patrols | normal: {len(final_patrols)}, romantic: {len(final_romance_patrols)} ')
+        logger.info(f'Total Number of Possible Patrols | normal: {len(final_patrols)}, romantic: {len(final_romance_patrols)} ')
         
         if final_patrols:
             normal_event_choice = choices(final_patrols, weights=[x.weight for x in final_patrols])[0]
         else:
-            print("ERROR: NO POSSIBLE NORMAL PATROLS FOUND for: ", self.patrol_statuses)
+            logger.error("ERROR: NO POSSIBLE NORMAL PATROLS FOUND for: %s", self.patrol_statuses)
             raise RuntimeError
         
         romantic_event_choice = None
@@ -84,7 +87,7 @@ class Patrol():
                                                                self.patrol_leader, 
                                                                self.patrol_random_cat, 
                                                                self.patrol_apprentices):
-            print("did the romance")
+            logger.info("did the romance")
             self.patrol_event = romantic_event_choice
         else:
             self.patrol_event = normal_event_choice
@@ -99,7 +102,7 @@ class Patrol():
         
         if path == "decline":
             if self.patrol_event:
-                print(f"PATROL ID: {self.patrol_event.patrol_id} | SUCCESS: N/A (did not proceed)")        
+                logger.info(f"PATROL ID: {self.patrol_event.patrol_id} | SUCCESS: N/A (did not proceed)")        
                 return self.process_text(self.patrol_event.decline_text, None), "", None
             else:
                 return "Error - no event chosen", "", None
@@ -203,8 +206,8 @@ class Patrol():
         else:
             self.patrol_random_cat = choice(patrol_cats)
             
-        print("Patrol Leader:", str(self.patrol_leader.name))
-        print("Random Cat:", str(self.patrol_random_cat.name))
+        logger.info("Patrol Leader: $s", str(self.patrol_leader.name))
+        logger.info("Random Cat: %s", str(self.patrol_random_cat.name))
 
     def get_possible_patrols(self, current_season:str, biome:str, patrol_type:str,
                              game_setting_disaster=None) -> Tuple[List[PatrolEvent]]:
@@ -312,26 +315,26 @@ class Patrol():
             for _pat in final_patrols:
                 if _pat.patrol_id == game.config["patrol_generation"]["debug_ensure_patrol_id"]:
                     final_patrols = [_pat]
-                    print(f"debug_ensure_patrol_id: " 
+                    logger.info(f"debug_ensure_patrol_id: " 
                           f'"{game.config["patrol_generation"]["debug_ensure_patrol_id"]}" '
                            "is a possible normal patrol, and was set as the only "
                            "normal patrol option")
                     break
             else:
-                print(f"debug_ensure_patrol_id: "
+                logger.info(f"debug_ensure_patrol_id: "
                       f'"{game.config["patrol_generation"]["debug_ensure_patrol_id"]}" '
                       "is not a possible normal patrol.")
             
             for _pat in final_romance_patrols:
                 if _pat.patrol_id == game.config["patrol_generation"]["debug_ensure_patrol_id"]:
                     final_romance_patrols = [_pat]
-                    print(f"debug_ensure_patrol_id: " 
+                    logger.info(f"debug_ensure_patrol_id: " 
                           f'"{game.config["patrol_generation"]["debug_ensure_patrol_id"]}" '
                            "is a possible romantic patrol, and was set as the only "
                            "romantic patrol option")
                     break
             else:
-                print(f"debug_ensure_patrol_id: "
+                logger.info(f"debug_ensure_patrol_id: "
                       f'"{game.config["patrol_generation"]["debug_ensure_patrol_id"]}" '
                       "is not a possible romantic patrol.")
             
@@ -435,7 +438,7 @@ class Patrol():
 
             # there should be only one value constraint for each value type
             elif len(tags) > 1:
-                print(f"ERROR: patrol {patrol_id} has multiple relationship constraints for the value {v_type}.")
+                logger.error(f"ERROR: patrol {patrol_id} has multiple relationship constraints for the value {v_type}.")
                 break_loop = True
                 break
 
@@ -444,19 +447,19 @@ class Patrol():
             try:
                 threshold = int(tags[0].split('_')[1])
             except Exception as e:
-                print(
+                logger.error(
                     f"ERROR: patrol {patrol_id} with the relationship constraint for the value {v_type} follows not the formatting guidelines.")
                 break_loop = True
                 break
 
             if threshold > 100:
-                print(
+                logger.error(
                     f"ERROR: patrol {patrol_id} has a relationship constraints for the value {v_type}, which is higher than the max value of a relationship.")
                 break_loop = True
                 break
 
             if threshold <= 0:
-                print(
+                logger.error(
                     f"ERROR: patrol {patrol_id} has a relationship constraints for the value {v_type}, which is lower than the min value of a relationship or 0.")
                 break_loop = True
                 break
@@ -507,12 +510,12 @@ class Patrol():
          # if no romance was available or the patrol lead and random cat aren't potential mates then use the normal event
 
         if not romantic_event:
-            print("No romantic event")
+            logger.info("No romantic event")
             return False
         
         if "rom_two_apps" in romantic_event.tags:
             if len(patrol_apprentices) < 2:
-                print('somehow, there are not enough apprentices for romantic patrol')
+                logger.error('somehow, there are not enough apprentices for romantic patrol')
                 return False
             love1 = patrol_apprentices[0]
             love2 = patrol_apprentices[1]
@@ -522,11 +525,11 @@ class Patrol():
         
         if not love1.is_potential_mate(love2, for_love_interest=True) \
                 and love1.ID not in love2.mate:
-            print('not a potential mate or current mate')
+            logger.info('not a potential mate or current mate')
             return False 
         
 
-        print("attempted romance between:", love1.name, love2.name)
+        logger.info("attempted romance between:", love1.name, love2.name)
         chance_of_romance_patrol = game.config["patrol_generation"]["chance_of_romance_patrol"]
 
         if get_personality_compatibility(love1,
@@ -544,7 +547,7 @@ class Patrol():
                 chance_of_romance_patrol += 2
         if chance_of_romance_patrol <= 0:
             chance_of_romance_patrol = 1
-        print("final romance chance:", chance_of_romance_patrol)
+        logger.info("final romance chance:", chance_of_romance_patrol)
         return not int(random.random() * chance_of_romance_patrol)
 
     def _filter_patrols(self, possible_patrols: List[PatrolEvent], biome:str, current_season:str, patrol_type:str):
@@ -577,7 +580,7 @@ class Patrol():
             flag = False
             for sta, num in patrol.min_max_status.items():
                 if len(num) != 2:
-                    print(f"Issue with status limits: {patrol.patrol_id}")
+                    logger.error(f"Issue with status limits: {patrol.patrol_id}")
                     continue
                 
                 if not (num[0] <= self.patrol_statuses.get(sta, -1) <= num[1]):
@@ -622,9 +625,9 @@ class Patrol():
                                                                   patrol_type)
         
         if not filtered_patrols:
-            print('No normal patrols possible. Repeating filter with used patrols cleared.')
+            logger.info('No normal patrols possible. Repeating filter with used patrols cleared.')
             self.used_patrols.clear()
-            print('used patrols cleared', self.used_patrols)
+            logger.info('used patrols cleared', self.used_patrols)
             filtered_patrols, romantic_patrols = self._filter_patrols(possible_patrols, biome,
                                                                       current_season, patrol_type)    
         
@@ -683,7 +686,7 @@ class Patrol():
         
         final_event, success = self.calculate_success(chosen_success, chosen_failure)
         
-        print(f"PATROL ID: {self.patrol_event.patrol_id} | SUCCESS: {success}")        
+        logger.info(f"PATROL ID: {self.patrol_event.patrol_id} | SUCCESS: {success}")        
         
         # Run the chosen outcome
         return final_event.execute_outcome(self)
@@ -702,7 +705,7 @@ class Patrol():
         success_chance = min(success_chance, 90)
         
         # Now, apply success and fail skill 
-        print('starting chance:', self.patrol_event.chance_of_success, "| EX_updated chance:", success_chance)
+        logger.info('starting chance:', self.patrol_event.chance_of_success, "| EX_updated chance:", success_chance)
         skill_updates = ""
         
         # Skill and trait stuff
@@ -726,7 +729,7 @@ class Patrol():
             success_chance = 115
             skill_updates += "success chance over 120, updated to 115"
         
-        print(skill_updates)
+        logger.info(skill_updates)
         
         success = int(random.random() * 120) < success_chance
         return (success_outcome if success else fail_outcome, success)
@@ -824,7 +827,7 @@ class Patrol():
             possible_prey_size.extend(repeat(prey_size[idx],amount))
             idx += 1
         chosen_prey_size = choice(possible_prey_size)
-        print(f"chosen filter prey size: {chosen_prey_size}")
+        logger.info(f"chosen filter prey size: {chosen_prey_size}")
 
         # filter all possible patrol depending on the needed prey size
         for patrol in possible_patrols:
@@ -861,7 +864,7 @@ class Patrol():
 
         # if the filtering results in an empty list, don't filter and return whole possible patrols
         if len(filtered_patrols) <= 0:
-            print("---- WARNING ---- filtering to balance out the hunting, didn't work.")
+            logger.warning("---- WARNING ---- filtering to balance out the hunting, didn't work.")
             filtered_patrols = possible_patrols
         return filtered_patrols
 
@@ -1011,7 +1014,7 @@ class Patrol():
         :param death: if you want the death history added set this to True, default is False
         """
         if not self.patrol_event.history_text:
-            print(
+            logger.warning(
                 f"WARNING: No history found for {self.patrol_event.patrol_id}, it may not need one but double check please!")
         if scar and "scar" in self.patrol_event.history_text:
             adjust_text = self.patrol_event.history_text['scar']
