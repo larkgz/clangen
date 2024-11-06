@@ -206,7 +206,7 @@ class Patrol():
         else:
             self.patrol_random_cat = choice(patrol_cats)
             
-        logger.info("Patrol Leader: $s", str(self.patrol_leader.name))
+        logger.info("Patrol Leader: %s", str(self.patrol_leader.name))
         logger.info("Random Cat: %s", str(self.patrol_random_cat.name))
 
     def get_possible_patrols(self, current_season:str, biome:str, patrol_type:str,
@@ -529,7 +529,7 @@ class Patrol():
             return False 
         
 
-        logger.info("attempted romance between:", love1.name, love2.name)
+        logger.info("attempted romance between: %s %s", love1.name, love2.name)
         chance_of_romance_patrol = game.config["patrol_generation"]["chance_of_romance_patrol"]
 
         if get_personality_compatibility(love1,
@@ -547,7 +547,7 @@ class Patrol():
                 chance_of_romance_patrol += 2
         if chance_of_romance_patrol <= 0:
             chance_of_romance_patrol = 1
-        logger.info("final romance chance:", chance_of_romance_patrol)
+        logger.info("final romance chance: %s", chance_of_romance_patrol)
         return not int(random.random() * chance_of_romance_patrol)
 
     def _filter_patrols(self, possible_patrols: List[PatrolEvent], biome:str, current_season:str, patrol_type:str):
@@ -627,7 +627,7 @@ class Patrol():
         if not filtered_patrols:
             logger.info('No normal patrols possible. Repeating filter with used patrols cleared.')
             self.used_patrols.clear()
-            logger.info('used patrols cleared', self.used_patrols)
+            logger.info('used patrols cleared %s', self.used_patrols)
             filtered_patrols, romantic_patrols = self._filter_patrols(possible_patrols, biome,
                                                                       current_season, patrol_type)    
         
@@ -705,7 +705,7 @@ class Patrol():
         success_chance = min(success_chance, 90)
         
         # Now, apply success and fail skill 
-        logger.info('starting chance:', self.patrol_event.chance_of_success, "| EX_updated chance:", success_chance)
+        logger.info('starting chance: %s %s %s', self.patrol_event.chance_of_success, "| EX_updated chance:", success_chance)
         skill_updates = ""
         
         # Skill and trait stuff
