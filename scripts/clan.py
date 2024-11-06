@@ -12,8 +12,6 @@ import random
 from random import choice, randint
 import os
 
-import pygame
-
 from scripts.cat.history import History
 from scripts.events_module.generate_events import OngoingEvent
 from scripts.housekeeping.datadir import get_save_dir
@@ -1129,21 +1127,6 @@ class StarClan():
         TODO: DOCS
         """
         self.instructor = None
-
-    def fade(self, cat):
-        """
-        TODO: DOCS
-        """
-        white = pygame.Surface((sprites.size, sprites.size))
-        fade_level = 0
-        if cat.dead:
-            for f in self.forgotten_stages:  # pylint: disable=consider-using-dict-items
-                if cat.dead_for in range(self.forgotten_stages[f][0],
-                                         self.forgotten_stages[f][1]):
-                    fade_level = f
-        white.fill((255, 255, 255, fade_level))
-        return white
-
 
 clan_class = Clan()
 clan_class.remove_cat(cat_class.ID)

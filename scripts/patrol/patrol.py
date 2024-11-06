@@ -7,7 +7,6 @@ from typing import List, Tuple
 from itertools import repeat
 
 import json
-import pygame
 from os.path import exists as path_exists
 
 from scripts.cat.history import History
@@ -866,33 +865,6 @@ class Patrol():
             filtered_patrols = possible_patrols
         return filtered_patrols
 
-    def get_patrol_art(self) -> pygame.Surface:
-        """Return's patrol art surface """
-        if not self.patrol_event or not isinstance(self.patrol_event.patrol_art, str):
-            return pygame.Surface((600, 600), flags=pygame.SRCALPHA)
-        
-        root_dir = "resources/images/patrol_art/"
-        
-        if game.settings.get("gore") and self.patrol_event.patrol_art_clean:
-            file_name = self.patrol_event.patrol_art_clean
-        else:
-            file_name = self.patrol_event.patrol_art
-            
-        
-        if not isinstance(file_name, str) or not path_exists(f"{root_dir}{file_name}.png"):
-            if "herb_gathering" in self.patrol_event.types:
-                file_name = 'med'
-            elif "hunting" in self.patrol_event.types:
-                file_name = 'hunt'
-            elif "border" in self.patrol_event.types:
-                file_name = 'bord'
-            else:
-                file_name = 'train'
-            
-            file_name = f"{file_name}_general_intro"
-            
-        return pygame.image.load(f"{root_dir}{file_name}.png")
-    
     def process_text(self, text, stat_cat:Cat) -> str:
         """Processes text """
 
