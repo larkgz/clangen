@@ -18,6 +18,12 @@ from scripts.utility import quit  # pylint: disable=redefined-builtin
 #     patrol_obj = Patrol()
 #     patrol_obj.setup_patrol(patrol_members, patrol_type)
 #     patrol_obj.proceed_patrol("proceed")
+#
+# Cat Relationships
+#     sorted(cat_obj.relationships.values(),
+#              key=lambda x: sum(map(abs, [x.romantic_love, x.platonic_like, x.dislike,
+#                                          x.admiration, x.comfortable, x.jealousy, x.trust])),
+#            reverse=True)
 
 if __name__ == "__main__":
     # initialize basic logging
