@@ -32,7 +32,7 @@ class AmbiguousCatException(Exception):
 class CatNotFoundException(Exception):
     """Exception raised when cat can't be found."""
 
-def get_cat_by_name(name) -> Cat:
+def get_cat_by_name(name: str) -> Cat:
     """Retrieves Cat object from the cat's name. Looks across all cats.
     Raises AmbiguousCatException if multiple cats have the same name."""
     matched_cats = [cat.name for cat in Cat.all_cats_list if cat.name == name]
@@ -42,7 +42,7 @@ def get_cat_by_name(name) -> Cat:
         raise CatNotFoundException()
     return matched_cats[0]
 
-def get_cat_by_string(string) -> Cat:
+def get_cat_by_string(string: str) -> Cat:
     """
     Gets Cat object represented by a given string. The string can either be an ID or a name. 
     Tries to look up the ID before it looks up the name.
