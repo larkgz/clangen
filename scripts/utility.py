@@ -11,15 +11,12 @@ import re
 import json
 import logging
 from sys import exit as sys_exit
-from typing import Dict
 
 
 logger = logging.getLogger(__name__)
-from scripts.game_structure import image_cache
 from scripts.cat.history import History
 from scripts.cat.names import names
 from scripts.cat.pelts import Pelt
-from scripts.cat.sprites import sprites
 from scripts.game_structure.game_essentials import game
 
 
