@@ -6,7 +6,7 @@ from scripts.game_structure.load_cat import load_cats, version_convert
 from scripts.game_structure.game_essentials import game
 from scripts.cat.cats import Cat
 from scripts.clan import clan_class
-from scripts.utility import quit  # pylint: disable=redefined-builtin
+from scripts.utility import quit as clangen_quit # pylint: disable=redefined-builtin
 
 # Advance one moon:
 #     events_class.one_moon()
