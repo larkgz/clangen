@@ -5,6 +5,7 @@ Clangen in your terminal!
 from scripts.game_structure.load_cat import load_cats, version_convert
 from scripts.game_structure.game_essentials import game
 from scripts.cat.cats import Cat
+from scripts.events import events_class
 from scripts.clan import clan_class
 from scripts.utility import quit as clangen_quit # pylint: disable=redefined-builtin
 
@@ -73,3 +74,25 @@ if __name__ == "__main__":
                 game.switches[
                     'error_message'] = 'There was an error loading the cats file!'
                 game.switches['traceback'] = e
+
+    while True:
+        user_input = input(">>> ")
+        user_input_split = user_input.split()
+        if not user_input_split:
+            continue
+        command = user_input_split[0]
+
+        if command == "moonskip":
+            events_class.one_moon()
+            print("The moon passes...")
+        elif command == "events":
+            for event in game.cur_events_list:
+                if "interaction" not in event.types:
+                    print(event.text)
+        elif command == "cats":
+            for cat in Cat.all_cats_list:
+                print(f"{cat.name}")
+        elif command == "quit":
+            clangen_quit()
+        else:
+            print(f"Command {command} not recognized.")
