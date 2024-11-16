@@ -81,6 +81,7 @@ if __name__ == "__main__":
         if not user_input_split:
             continue
         command = user_input_split[0]
+        args = user_input_split[1:]
 
         if command == "moonskip":
             events_class.one_moon()
