@@ -95,4 +95,4 @@ if __name__ == "__main__":
         elif command == "quit":
             clangen_quit()
         else:
-            print(f"Command {command} not recognized.")
+            print(f"Command '{command}' not recognized.")
