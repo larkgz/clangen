@@ -106,7 +106,7 @@ if __name__ == "__main__":
                     print(event.text)
         elif command == "cats":
             for cat in Cat.all_cats_list:
-                print(f"{cat.name}")
+                print(f"{cat.name} - {cat.describe_cat()}")
         elif command == "quit":
             clangen_quit()
         else:
