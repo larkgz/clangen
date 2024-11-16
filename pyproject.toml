@@ -40,3 +40,19 @@ wheel = "^0.40.0"
 
 [tool.poetry.extras]
 discord = ["pypresence"]
+
+[tool.hatch]
+
+[tool.hatch.version]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clangen-lite"
+description = "Clangen in your terminal!"
+version = "0.0.1"
+
+[tool.hatch.build.targets.wheel]
+include = ["scripts", "resources"]
+exclude = ["resources/images", "resources/fonts"]
