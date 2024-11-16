@@ -90,20 +90,15 @@ ipython_config.py
 saves/
 saves/clanlist.txt
 saves/settings.txt
-saves\
-saves\clanlist.txt
-saves\settings.txt
 
 # Logs
 logs/
 
 # Temp
 ~temp/
-~temp\
 
 # Saved Images
 saved_images/
-saved_images\
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
