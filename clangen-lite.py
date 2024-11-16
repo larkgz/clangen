@@ -108,6 +108,10 @@ if __name__ == "__main__":
             for cat in Cat.all_cats_list:
                 print(f"{cat.name} - {cat.describe_cat()}")
         elif command == "quit":
+            game.save_cats()
+            game.clan.save_clan()
+            game.clan.save_pregnancy(game.clan)
+            game.save_events()
             clangen_quit()
         else:
             print(f"Command '{command}' not recognized.")
