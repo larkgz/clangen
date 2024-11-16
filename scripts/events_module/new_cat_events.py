@@ -11,6 +11,8 @@ from scripts.event_class import Single_Event
 from scripts.cat.names import Name
 from scripts.cat.history import History
 
+import logging
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------- #
 #                               New Cat Event Class                              #
@@ -81,7 +83,7 @@ class NewCatEvents:
                                                                         enemy_clan,
                                                                         other_clan, alive_kits)
         if not final_events:
-            print('ERROR: no new cat moon events available')
+            logger.error('ERROR: no new cat moon events available')
             return
         else:
             new_cat_event = (random.choice(final_events))
