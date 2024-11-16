@@ -36,7 +36,7 @@ class CatNotFoundException(Exception):
 def get_cat_by_name(name: str) -> Cat:
     """Retrieves Cat object from the cat's name. Looks across all cats.
     Raises AmbiguousCatException if multiple cats have the same name."""
-    matched_cats = [cat for cat in Cat.all_cats_list if str(cat.name) == name]
+    matched_cats = [cat for cat in Cat.all_cats_list if str(cat.name).lower() == name.lower()]
     if len(matched_cats) > 1:
         raise AmbiguousCatException(f"{len(matched_cats)} cats with name {name}")
     if len(matched_cats) == 0:
