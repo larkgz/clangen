@@ -113,5 +113,20 @@ if __name__ == "__main__":
             game.clan.save_pregnancy(game.clan)
             game.save_events()
             clangen_quit()
+        elif command == "kill":
+            if args:
+                try:
+                    cat = get_cat_by_string(args[0])
+                    if cat.is_alive():
+                        cat.die()
+                        print(f"{cat.name} was killed.")
+                    else:
+                        print(f"{cat.name} is already dead!")
+                except AmbiguousCatException as e:
+                    print(f"Multiple cats with the name `{args[0]}.`")
+                except CatNotFoundException:
+                    print(f"Could not find cat `{args[0]}`.")
+            else:
+                print("No cat specified to kill.")
         else:
             print(f"Command '{command}' not recognized.")
