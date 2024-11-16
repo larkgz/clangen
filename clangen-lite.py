@@ -84,8 +84,22 @@ if __name__ == "__main__":
         args = user_input_split[1:]
 
         if command == "moonskip":
-            events_class.one_moon()
-            print("The moon passes...")
+            moons_to_skip = 1
+            if args:
+                n = args[0]
+                if not n.isdigit():
+                    print(f"'{n}' is not a positive integer")
+                else:
+                    moons_to_skip = int(n)
+
+            if moons_to_skip == 1:
+                events_class.one_moon()
+                print("The moon passes...")
+            else:
+                for i in range(moons_to_skip):
+                    events_class.one_moon()
+                print(f"Skipped {n} moons.")
+
         elif command == "events":
             for event in game.cur_events_list:
                 if "interaction" not in event.types:
