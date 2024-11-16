@@ -1175,10 +1175,11 @@ def quit(savesettings=False, clearevents=False):
         game.save_settings()
     if clearevents:
         game.cur_events_list.clear()
-    game.rpc.close_rpc.set()
-    game.rpc.update_rpc.set()
-    if game.rpc.is_alive():
-        game.rpc.join(1)
+    if game.rpc:
+        game.rpc.close_rpc.set()
+        game.rpc.update_rpc.set()
+        if game.rpc.is_alive():
+            game.rpc.join(1)
     sys_exit()
 
 
