@@ -54,5 +54,4 @@ description = "Clangen in your terminal!"
 version = "0.0.1"
 
 [tool.hatch.build.targets.wheel]
-include = ["scripts", "resources"]
-exclude = ["resources/images", "resources/fonts"]
+include = ["scripts"]
