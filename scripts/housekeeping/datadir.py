@@ -26,14 +26,7 @@ def setup_data_dir():
 
 
 def get_data_dir():
-    if get_version_info().is_source_build:
-        return '.'
-
-    from platformdirs import user_data_dir
-
-    if get_version_info().is_dev():
-        return user_data_dir('ClanGenBeta', 'ClanGen')
-    return user_data_dir('ClanGen', 'ClanGen')
+    return '.'
 
 
 def get_log_dir():
