@@ -600,9 +600,25 @@ class Cat:
         if not self.outside:
             Cat.dead_cats.append(self)
             if game.clan.instructor.df is False:
+                # starclan does not like this cat
+                if self.star_clan_affinity < 0:
+                    # might send them to dark forest instead
+                    if random.random() > abs(self.star_clan_affinity) / 100:
+                        self.df = True
+                        game.clan.add_to_darkforest(self)
+                        return
+                # otherwise, they go to starclan
                 self.df = False
                 game.clan.add_to_starclan(self)
             elif game.clan.instructor.df is True:
+                # dark forest does not like this cat
+                if self.dark_forest_affinity < 0:
+                    # might send them to starclan instead
+                    if random.random() > abs(self.dark_forest_affinity) / 100:
+                        self.df = False
+                        game.clan.add_to_starclan(self)
+                        return
+                # otherwise, they go to dark forest
                 self.df = True
                 game.clan.add_to_darkforest(self)
         else:
