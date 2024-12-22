@@ -530,6 +530,14 @@ class Cat:
         :return: True if alive, False if dead
         """
         return not self.dead
+    
+    def _to_dark_forest(self):
+        self.df = True
+        game.clan.add_to_darkforest(self)
+
+    def _to_starclan(self):
+        self.df = False
+        game.clan.add_to_starclan(self)
 
     def die(self, body: bool = True):
         """Kills cat.
@@ -604,23 +612,19 @@ class Cat:
                 if self.star_clan_affinity < 0:
                     # might send them to dark forest instead
                     if random.random() > abs(self.star_clan_affinity) / 100:
-                        self.df = True
-                        game.clan.add_to_darkforest(self)
+                        self._to_dark_forest()
                         return
                 # otherwise, they go to starclan
-                self.df = False
-                game.clan.add_to_starclan(self)
+                self._to_starclan()
             elif game.clan.instructor.df is True:
                 # dark forest does not like this cat
                 if self.dark_forest_affinity < 0:
                     # might send them to starclan instead
                     if random.random() > abs(self.dark_forest_affinity) / 100:
-                        self.df = False
-                        game.clan.add_to_starclan(self)
+                        self._to_starclan()
                         return
                 # otherwise, they go to dark forest
-                self.df = True
-                game.clan.add_to_darkforest(self)
+                self._to_dark_forest()
         else:
             game.clan.add_to_unknown(self)
 
