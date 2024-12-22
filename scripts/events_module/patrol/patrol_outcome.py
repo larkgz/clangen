@@ -66,7 +66,7 @@ class PatrolOutcome:
         outcome_art: Union[str, None] = None,
         outcome_art_clean: Union[str, None] = None,
         stat_cat: Cat = None,
-        affinity: Union[Dict[List[Dict]], None] = None
+        affinity: Union[Dict[str, List[Dict]], None] = None
     ):
         self.success = success
         self.antagonize = antagonize
