@@ -93,12 +93,12 @@
                     "description": "Which afterlife will be affected.",
                     "enum": ["starclan", "dark forest"]
                   },
-                  "change": {
-                    "description": "Change in the affinity.",
+                  "amount": {
+                    "description": "Amount the afterlife affinity changes.",
                     "type": "integer"
                   }
                 },
-                "required": ["change"]
+                "required": ["amount"]
               }
             }
           }

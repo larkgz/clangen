@@ -879,18 +879,18 @@ class PatrolOutcome:
             cat_abbrevs: List[str] = change.get("cats", ())
             cat_objs: List[Cat] = gather_cat_objects(Cat, cat_abbrevs, patrol, self.stat_cat)
             for cat in cat_objs:
-                change_value = change["change"]
+                amount = change["amount"]
                 if change["afterlife"] == "dark forest":
-                    cat.dark_forest_affinity += change_value
-                    if change_value > 0:
+                    cat.dark_forest_affinity += amount
+                    if amount > 0:
                         results.append(f"{cat.name} has gained favor with the Dark Forest.")
-                    elif change_value < 0:
+                    elif amount < 0:
                         results.append(f"{cat.name} has lost favor with the Dark Forest.")
                 elif change["afterlife"] == "starclan":
-                    cat.star_clan_affinity += change_value
-                    if change_value > 0:
+                    cat.star_clan_affinity += amount
+                    if amount > 0:
                         results.append(f"{cat.name} has gained favor with Starclan.")
-                    elif change_value < 0:
+                    elif amount < 0:
                         results.append(f"{cat.name} has lost favor with Starclan.")
         return " ".join(results)
 
