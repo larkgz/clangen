@@ -73,6 +73,36 @@
             ]
           }
         },
+        "affinity": {
+          "description": "Indicates afterlife affinity changes and requirements associated with this outcome.",
+          "type": "object",
+          "properties": {
+            "changes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cats": {
+                    "description": "Cats whose afterlife affinity will change from this outcome.",
+                    "type": "array",
+                    "items": {
+                      "$ref": "common.schema.json#/definitions/gather_cat"
+                    }
+                  },
+                  "afterlife": {
+                    "description": "Which afterlife will be affected.",
+                    "enum": ["starclan", "dark forest"]
+                  },
+                  "change": {
+                    "description": "Change in the affinity.",
+                    "type": "integer"
+                  }
+                },
+                "required": ["change"]
+              }
+            }
+          }
+        },
         "lost_cats": {
           "description": "Indicates which cats will become lost.",
           "type": "array",
