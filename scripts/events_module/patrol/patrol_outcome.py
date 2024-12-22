@@ -278,7 +278,7 @@ class PatrolOutcome:
         results.append(self._handle_herbs(patrol))
         results.append(self._handle_exp(patrol))
         results.append(self._handle_mentor_app(patrol))
-        results.append(self._handle_afterlife_affinity)
+        results.append(self._handle_afterlife_affinity(patrol))
 
         # Filter out empty results strings
         results = [x for x in results if x]
