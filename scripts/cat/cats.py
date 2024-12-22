@@ -611,7 +611,7 @@ class Cat:
                 # starclan does not like this cat
                 if self.star_clan_affinity < 0:
                     # might send them to dark forest instead
-                    if random.random() > abs(self.star_clan_affinity) / 100:
+                    if random() > abs(self.star_clan_affinity) / 100:
                         self._to_dark_forest()
                         return
                 # otherwise, they go to starclan
@@ -620,7 +620,7 @@ class Cat:
                 # dark forest does not like this cat
                 if self.dark_forest_affinity < 0:
                     # might send them to starclan instead
-                    if random.random() > abs(self.dark_forest_affinity) / 100:
+                    if random() > abs(self.dark_forest_affinity) / 100:
                         self._to_starclan()
                         return
                 # otherwise, they go to dark forest
