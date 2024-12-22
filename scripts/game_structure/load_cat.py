@@ -211,6 +211,9 @@ def json_load():
             new_cat.previous_mates = (
                 cat["previous_mates"] if "previous_mates" in cat else []
             )
+            new_cat.dark_forest_affinity = cat.get("dark_forest_affinity", 0)
+            new_cat.star_clan_affinity = cat.get("starclan_affinity", 0)
+
             new_cat.dead = cat["dead"]
             new_cat.dead_for = cat["dead_moons"]
             new_cat.experience = cat["experience"]
