@@ -190,6 +190,9 @@ class Cat:
         self._experience = None
         self._moons = None
 
+        self.dark_forest_affinity = 0
+        self.star_clan_affinity = 0
+
         # Public attributes
         self.gender = gender
         self.status = status
