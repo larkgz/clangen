@@ -66,6 +66,7 @@ class PatrolOutcome:
         outcome_art: Union[str, None] = None,
         outcome_art_clean: Union[str, None] = None,
         stat_cat: Cat = None,
+        affinity: Union[Dict[List[Dict]], None] = None
     ):
         self.success = success
         self.antagonize = antagonize
@@ -104,6 +105,7 @@ class PatrolOutcome:
         )
         self.outcome_art = outcome_art
         self.outcome_art_clean = outcome_art_clean
+        self.affinity = affinity
 
         # This will hold the stat cat, for filtering purposes
         self.stat_cat = stat_cat
@@ -276,6 +278,7 @@ class PatrolOutcome:
         results.append(self._handle_herbs(patrol))
         results.append(self._handle_exp(patrol))
         results.append(self._handle_mentor_app(patrol))
+        results.append(self._handle_afterlife_affinity)
 
         # Filter out empty results strings
         results = [x for x in results if x]
@@ -862,6 +865,33 @@ class PatrolOutcome:
                     print(str(cat.name), affect_skills)
 
         return ""
+
+    def _handle_afterlife_affinity(self, patrol: "Patrol") -> str:
+        """Handles Dark Forest/Starclan affinity."""
+        block = self.affinity
+        if not block:
+            return
+
+        results = []
+        changes: List[Dict] = block.get("changes")
+        for change in changes:
+            cat_abbrevs: List[str] = change.get("cats", ())
+            cat_objs: List[Cat] = gather_cat_objects(Cat, cat_abbrevs, patrol, self.stat_cat)
+            for cat in cat_objs:
+                change = changes["change"]
+                if changes["affinity"] == "dark forest":
+                    cat.dark_forest_affinity += change
+                    if change > 0:
+                        results.append(f"{cat.name} has gained favor with the Dark Forest.")
+                    elif change < 0:
+                        results.append(f"{cat.name} has lost favor with the Dark Forest.")
+                elif changes["affinity"] == "starclan":
+                    cat.star_clan_affinity += change
+                    if change > 0:
+                        results.append(f"{cat.name} has gained favor with Starclan.")
+                    elif change < 0:
+                        results.append(f"{cat.name} has lost favor with Starclan.")
+        return " ".join(results)
 
     # ---------------------------------------------------------------------------- #
     #                                   HELPERS                                    #
