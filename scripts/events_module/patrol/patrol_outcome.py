@@ -874,40 +874,32 @@ class PatrolOutcome:
             return
 
         results = []
-        changes: List[Dict] = block.get("changes")
-        dark_forest_changes = changes.get("dark_forest")
-        starclan_changes = changes.get("starclan")
-
-        if dark_forest_changes:
-            cats = dark_forest_changes["cats"]
-            amount = dark_forest_changes["amount"]
-            silent_result = dark_forest_changes.get("silent_result", False)
-            chance = dark_forest_changes.get("chance", 1)
+        changes: Dict = block.get("changes")
+        for afterlife, change in changes.items():
+            cats = change["cats"]
+            amount = change["amount"]
+            silent_result = change.get("silent_result", False)
+            chance = change.get("chance", 1)
 
             if random.random() < chance:
                 cat_objs: List[Cat] = gather_cat_objects(Cat, cats, patrol, self.stat_cat)
                 for cat in cat_objs:
-                    cat.dark_forest_affinity += amount
-                if not silent_result:
-                    if amount > 0:
-                        results.append("The Dark Forest is pleased.")
-                    elif amount < 0:
-                        results.append("The Dark Forest is displeased.")
-        if starclan_changes:
-            cats = starclan_changes["cats"]
-            amount = starclan_changes["amount"]
-            silent_result = starclan_changes.get("silent_result", False)
-            chance = starclan_changes.get("chance", 1)
+                    if afterlife == "starclan":
+                        cat.star_clan_affinity += amount
+                    elif afterlife == "dark_forest":
+                        cat.dark_forest_affinity += amount
 
-            if random.random() < chance:
-                cat_objs: List[Cat] = gather_cat_objects(Cat, cats, patrol, self.stat_cat)
-                for cat in cat_objs:
-                    cat.star_clan_affinity += amount
                 if not silent_result:
                     if amount > 0:
-                        results.append("Starclan is pleased.")
+                        if afterlife == "starclan":
+                            results.append("Starclan is pleased.")
+                        elif afterlife == "dark_forest":
+                            results.append("The Dark Forest is pleased.")
                     elif amount < 0:
-                        results.append("Starclan is displeased.")
+                        if afterlife == "starclan":
+                            results.append("Starclan is displeased.")
+                        elif afterlife == "dark_forest":
+                            results.append("The Dark Forest is displeased.")
         return " ".join(results)
 
     # ---------------------------------------------------------------------------- #
