@@ -4,6 +4,35 @@
   "description": "Patrols in Clan Generator.",
   "type": "array",
   "definitions": {
+    "affinity_change": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Amount the afterlife affinity will change.",
+          "type": "integer"
+        },
+        "cats": {
+          "type": "array",
+          "description": "Cats that will be affected by the change.",
+          "items": {
+            "$ref": "common.schema.json#/definitions/gather_cat"
+          }
+        },
+        "silent_result": {
+          "description": "True if the result should be hidden from patrol results. Will be read as false if not specified.",
+          "type": "boolean",
+          "default": false
+        },
+        "chance": {
+          "description": "Probability that the affinity change will occur. Ranges from 0 to 1, where 0 is never and 1 is guaranteed. Will be read as 1 if not specified.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 1
+        }
+      },
+      "required": ["cats", "amount"]
+    },
     "outcome": {
       "type": "object",
       "properties": {
@@ -78,30 +107,16 @@
           "type": "object",
           "properties": {
             "changes": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "cats": {
-                    "description": "Cats whose afterlife affinity will change from this outcome.",
-                    "type": "array",
-                    "items": {
-                      "$ref": "common.schema.json#/definitions/gather_cat"
-                    }
-                  },
-                  "afterlife": {
-                    "description": "Which afterlife will be affected.",
-                    "enum": ["starclan", "dark forest"]
-                  },
-                  "amount": {
-                    "description": "Amount the afterlife affinity changes.",
-                    "type": "integer"
-                  }
+              "properties": {
+                "starclan": {
+                  "$ref": "#/definitions/affinity_change"
                 },
-                "required": ["amount"]
+                "dark_forest": {
+                  "$ref": "#/definitions/affinity_change"
+                }    
               }
             }
-          }
+         }
         },
         "lost_cats": {
           "description": "Indicates which cats will become lost.",

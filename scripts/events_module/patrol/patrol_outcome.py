@@ -873,25 +873,41 @@ class PatrolOutcome:
         if not block:
             return
 
-        results = set()
+        results = []
         changes: List[Dict] = block.get("changes")
-        for change in changes:
-            cat_abbrevs: List[str] = change.get("cats", ())
-            cat_objs: List[Cat] = gather_cat_objects(Cat, cat_abbrevs, patrol, self.stat_cat)
-            for cat in cat_objs:
-                amount = change["amount"]
-                if change["afterlife"] == "dark forest":
+        dark_forest_changes = changes.get("dark_forest")
+        starclan_changes = changes.get("starclan")
+
+        if dark_forest_changes:
+            cats = dark_forest_changes["cats"]
+            amount = dark_forest_changes["amount"]
+            silent_result = dark_forest_changes.get("silent_result", False)
+            chance = dark_forest_changes.get("chance", 1)
+
+            if random.random() < chance:
+                cat_objs: List[Cat] = gather_cat_objects(Cat, cats, patrol, self.stat_cat)
+                for cat in cat_objs:
                     cat.dark_forest_affinity += amount
+                if not silent_result:
                     if amount > 0:
-                        results.add("The Dark Forest is pleased.")
+                        results.append("The Dark Forest is pleased.")
                     elif amount < 0:
-                        results.add("The Dark Forest is displeased.")
-                elif change["afterlife"] == "starclan":
+                        results.append("The Dark Forest is displeased.")
+        if starclan_changes:
+            cats = starclan_changes["cats"]
+            amount = starclan_changes["amount"]
+            silent_result = starclan_changes.get("silent_result", False)
+            chance = starclan_changes.get("chance", 1)
+
+            if random.random() < chance:
+                cat_objs: List[Cat] = gather_cat_objects(Cat, cats, patrol, self.stat_cat)
+                for cat in cat_objs:
                     cat.star_clan_affinity += amount
+                if not silent_result:
                     if amount > 0:
-                        results.add("Starclan is pleased.")
+                        results.append("Starclan is pleased.")
                     elif amount < 0:
-                        results.add("Starclan is displeased.")
+                        results.append("Starclan is displeased.")
         return " ".join(results)
 
     # ---------------------------------------------------------------------------- #
