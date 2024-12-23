@@ -873,7 +873,7 @@ class PatrolOutcome:
         if not block:
             return
 
-        results = []
+        results = set()
         changes: List[Dict] = block.get("changes")
         for change in changes:
             cat_abbrevs: List[str] = change.get("cats", ())
@@ -883,15 +883,15 @@ class PatrolOutcome:
                 if change["afterlife"] == "dark forest":
                     cat.dark_forest_affinity += amount
                     if amount > 0:
-                        results.append(f"{cat.name} has gained favor with the Dark Forest.")
+                        results.add("The Dark Forest is pleased.")
                     elif amount < 0:
-                        results.append(f"{cat.name} has lost favor with the Dark Forest.")
+                        results.add("The Dark Forest is displeased.")
                 elif change["afterlife"] == "starclan":
                     cat.star_clan_affinity += amount
                     if amount > 0:
-                        results.append(f"{cat.name} has gained favor with Starclan.")
+                        results.add("Starclan is pleased.")
                     elif amount < 0:
-                        results.append(f"{cat.name} has lost favor with Starclan.")
+                        results.add("Starclan is displeased.")
         return " ".join(results)
 
     # ---------------------------------------------------------------------------- #
