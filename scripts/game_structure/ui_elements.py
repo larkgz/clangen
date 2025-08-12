@@ -864,6 +864,7 @@ class UISpriteButton:
             anchors=anchors,
             mask=mask,
             mask_padding=mask_padding,
+            parent=self
         )
         input_sprite = sprite.premul_alpha()
         # if it's going to be small on the screen, smoothscale out the crunch
@@ -937,9 +938,14 @@ class UISpriteButton:
     def get_abs_rect(self):
         return self.button.get_abs_rect()
 
-    def on_hovered(self):
-        self.button.on_hovered()
+    # this doesn't get triggered automatically because pygame gui doesn't know about this class
+    # however, pygame gui DOES know about the button, so, the CatButton triggers this
 
+    def on_hovered(self):
+        pass
+
+    def on_unhovered(self):
+        pass
 
 class CatButton(UIImageButton):
     """Basic UIButton subclass for at sprite buttons. It stores the cat ID.
@@ -965,9 +971,11 @@ class CatButton(UIImageButton):
         mask_padding=None,
         auto_disable_if_no_data=False,
         tool_tip_object_id=None,
+        parent:UISpriteButton=None
     ):
         self.cat_id = cat_id
         self.cat_object = cat_object
+        self.parent = parent
 
         super().__init__(
             relative_rect,
@@ -999,6 +1007,17 @@ class CatButton(UIImageButton):
     def set_id(self, id):
         self.cat_id = id
 
+    # pygame gui doesn't know about UISpriteButtons, so trigger their callbacks here
+
+    def on_hovered(self):
+        super().on_hovered()
+        if self.parent:
+            self.parent.on_hovered()
+
+    def on_unhovered(self):
+        super().on_unhovered()
+        if self.parent:
+            self.parent.on_unhovered()
 
 class UITextBoxTweaked(pygame_gui.elements.UITextBox):
     """The default class has 1.25 line spacing. It would be fairly easy to allow the user to change that,
