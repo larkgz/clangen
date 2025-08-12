@@ -178,12 +178,17 @@ class ClanScreen(Screens):
                     blend_layer = pygame.Surface(ui_scale_dimensions((50, 50)))
                     blend_layer.fill(pygame.transform.average_color(avg_layer))
 
-                sprite = image.copy()
+                sprite: pygame.Surface = image.copy()
                 sprite.fill((255, 255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
                 sprite.blit(blend_layer, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
                 image.set_alpha(self.layout["cat_shading"]["blend_strength"])
                 sprite.blit(image, (0, 0), special_flags=pygame.BLEND_ALPHA_SDL2)
                 sprite.set_alpha(255)
+
+                hover_sprite = pygame.surface.Surface(ui_scale_dimensions((50, 50))).convert_alpha()
+                hover_sprite.fill((255, 255, 255, 0))
+                hover_sprite.blit(x.sprite_mask.to_surface(setcolor=(255, 255, 255, 200), unsetcolor=None), (-5, -5))
+                hover_sprite.blit(sprite.convert_alpha())
 
                 self.cat_buttons.append(
                     UISpriteButton(
@@ -192,6 +197,7 @@ class ClanScreen(Screens):
                         mask=x.sprite_mask,
                         cat_id=x.ID,
                         starting_height=layers[-1],
+                        hover_sprite=hover_sprite
                     )
                 )
             except:
