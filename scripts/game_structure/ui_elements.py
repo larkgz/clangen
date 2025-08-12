@@ -844,6 +844,7 @@ class UISpriteButton:
         anchors=None,
         mask=None,
         mask_padding=None,
+        hover_sprite:pygame.Surface=None,
     ):
         # The transparent button. This a subclass that UIButton that also hold the cat_id.
 
@@ -866,19 +867,7 @@ class UISpriteButton:
             mask_padding=mask_padding,
             parent=self
         )
-        input_sprite = sprite.premul_alpha()
-        # if it's going to be small on the screen, smoothscale out the crunch
-        input_sprite = (
-            pygame.transform.smoothscale(input_sprite, relative_rect.size)
-            if (
-                (
-                    relative_rect.height <= ui_scale_value(sprite.get_height())
-                    or relative_rect.width <= ui_scale_value(sprite.get_height())
-                )
-                and not game_setting_get("no sprite antialiasing")
-            )
-            else pygame.transform.scale(input_sprite, relative_rect.size)
-        )
+        input_sprite = self.__scale_sprite(sprite, relative_rect)
         self.image = pygame_gui.elements.UIImage(
             relative_rect,
             input_sprite,
@@ -889,9 +878,27 @@ class UISpriteButton:
             anchors=anchors,
             starting_height=starting_height,
         )
-        del input_sprite
+        self.default_sprite = input_sprite
+        if hover_sprite:
+            self.hover_sprite = self.__scale_sprite(hover_sprite, relative_rect)
+        else:
+            self.hover_sprite = None
         self.button.join_focus_sets(self.image)
         self.image.check_hover = self.__image_check_hover
+
+    def __scale_sprite(self, sprite: pygame.Surface, relative_rect: pygame.Rect):
+        input_sprite = sprite.premul_alpha()
+        return (
+            pygame.transform.smoothscale(input_sprite, relative_rect.size)
+            if (
+                (
+                    relative_rect.height <= ui_scale_value(sprite.get_height())
+                    or relative_rect.width <= ui_scale_value(sprite.get_height())
+                )
+                and not game_setting_get("no sprite antialiasing")
+            )
+            else pygame.transform.scale(input_sprite, relative_rect.size)
+        )
 
     def __image_check_hover(self, time_delta: float, hovered_higher_element: bool):
         return False
@@ -942,10 +949,12 @@ class UISpriteButton:
     # however, pygame gui DOES know about the button, so, the CatButton triggers this
 
     def on_hovered(self):
-        pass
+        if self.hover_sprite:
+            self.set_image(self.hover_sprite)
 
     def on_unhovered(self):
-        pass
+        if self.hover_sprite:
+            self.set_image(self.default_sprite)
 
 class CatButton(UIImageButton):
     """Basic UIButton subclass for at sprite buttons. It stores the cat ID.
