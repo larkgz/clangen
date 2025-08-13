@@ -901,6 +901,10 @@ class UISpriteButton:
         )
 
     def __image_check_hover(self, time_delta: float, hovered_higher_element: bool):
+        """
+        Empty check_hover function to assign to images to prevent them from
+        eating the hover event that the button needs.
+        """
         return False
 
     def return_cat_id(self):
