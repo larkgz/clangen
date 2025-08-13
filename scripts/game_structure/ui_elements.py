@@ -878,11 +878,24 @@ class UISpriteButton:
             anchors=anchors,
             starting_height=starting_height,
         )
-        self.default_sprite = input_sprite
         if hover_sprite:
-            self.hover_sprite = self.__scale_sprite(hover_sprite, relative_rect)
+            hover_relative_rect = relative_rect.copy()
+            hover_relative_rect.inflate_ip(10, 10)
+            hover_relative_rect.move_ip(5, 5)
+            self.hover_sprite = self.__scale_sprite(hover_sprite, hover_relative_rect)
+            self.hover_image = pygame_gui.elements.UIImage(
+                hover_relative_rect,
+                hover_sprite,
+                visible=0,
+                manager=manager,
+                container=container,
+                object_id=object_id,
+                anchors=anchors,
+                starting_height=starting_height+20
+            )
+            self.hover_image.check_hover = self.__image_check_hover
         else:
-            self.hover_sprite = None
+            self.hover_image = None
         self.button.join_focus_sets(self.image)
         self.image.check_hover = self.__image_check_hover
 
@@ -922,6 +935,7 @@ class UISpriteButton:
     def hide(self):
         self.image.hide()
         self.button.hide()
+        self.hover_image.hide()
 
     def show(self):
         self.image.show()
@@ -930,6 +944,8 @@ class UISpriteButton:
     def kill(self):
         self.button.kill()
         self.image.kill()
+        if self.hover_image:
+            self.hover_image.kill()
         del self
 
     def set_image(self, new_image):
@@ -953,12 +969,15 @@ class UISpriteButton:
     # however, pygame gui DOES know about the button, so, the CatButton triggers this
 
     def on_hovered(self):
-        if self.hover_sprite:
-            self.set_image(self.hover_sprite)
+        if self.hover_image:
+            self.hover_image.visible = 1
+            self.image.visible = 0
+
 
     def on_unhovered(self):
-        if self.hover_sprite:
-            self.set_image(self.default_sprite)
+        if self.hover_image:
+            self.hover_image.visible = 0
+            self.image.visible = 1
 
 class CatButton(UIImageButton):
     """Basic UIButton subclass for at sprite buttons. It stores the cat ID.
