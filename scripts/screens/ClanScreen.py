@@ -185,9 +185,9 @@ class ClanScreen(Screens):
                 sprite.blit(image, (0, 0), special_flags=pygame.BLEND_ALPHA_SDL2)
                 sprite.set_alpha(255)
 
-                hover_sprite = pygame.surface.Surface(ui_scale_dimensions((60, 60))).convert_alpha()
+                hover_sprite = pygame.surface.Surface((60, 60)).convert_alpha()
                 hover_sprite.fill((255, 255, 255, 0))
-                hover_sprite.blit(x.sprite_mask.to_surface(setcolor=(255, 255, 255, 200), unsetcolor=None), (-5, -5))
+                hover_sprite.blit(x.outline_mask.to_surface(setcolor=(255, 255, 255, 200), unsetcolor=None), (-5, -5))
                 hover_sprite.blit(sprite.convert_alpha())
 
                 self.cat_buttons.append(

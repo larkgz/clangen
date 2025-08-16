@@ -2670,9 +2670,15 @@ def update_sprite(cat):
 
 
 def update_mask(cat):
+    """
+    Updates mask and outline.
+    """
+    outline_width = 1
+
     if cat.faded or cat.dead:
         # should never need a mask since they can't appear on the Clan screen
         cat.sprite_mask = None
+        cat.outline_mask = None
         return
 
     val = pygame.mask.from_surface(
@@ -2686,7 +2692,7 @@ def update_mask(cat):
         )
     )
     inflated_mask.draw(val, (5, 5))
-    for _ in range(3):
+    for i in range(3):
         outline = inflated_mask.outline()
         for point in outline:
             for dx in range(-1, 2):
@@ -2695,6 +2701,9 @@ def update_mask(cat):
                         inflated_mask.set_at((point[0] + dx, point[1] + dy), 1)
                     except IndexError:
                         continue
+
+        if i == outline_width - 1:
+            cat.outline_mask = inflated_mask.copy()
     cat.sprite_mask = inflated_mask
 
 
