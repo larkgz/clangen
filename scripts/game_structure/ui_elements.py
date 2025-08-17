@@ -891,7 +891,7 @@ class UISpriteButton:
                 container=container,
                 object_id=object_id,
                 anchors=anchors,
-                starting_height=starting_height+20
+                starting_height=starting_height
             )
             self.hover_image.check_hover = self.__image_check_hover
         else:
