@@ -42,7 +42,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -105,7 +105,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -173,7 +173,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -239,7 +239,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -306,7 +306,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -370,7 +370,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -437,7 +437,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -504,7 +504,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -575,7 +575,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -642,7 +642,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -3013,7 +3013,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -3088,7 +3088,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -3152,7 +3152,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -3223,7 +3223,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -4036,7 +4036,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -4395,7 +4395,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": ["hidden_murder_reveal"]
+                    "subtype": ["hidden_murder_reveal"]
                 },
                 "moon_delay": [
                     1,
@@ -4659,7 +4659,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -4719,7 +4719,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -4787,7 +4787,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -5044,7 +5044,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": ["hidden_murder_reveal"]
+                    "subtype": ["hidden_murder_reveal"]
                 },
                 "moon_delay": [
                     1,
@@ -6644,7 +6644,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -6718,7 +6718,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -6820,7 +6820,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -6889,7 +6889,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -6985,7 +6985,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -7311,7 +7311,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8269,7 +8269,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8354,7 +8354,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8426,7 +8426,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8493,7 +8493,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8566,7 +8566,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8643,7 +8643,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8761,7 +8761,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },
@@ -8825,7 +8825,7 @@
             {
                 "event_type": "misc",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder_reveal"
                     ]
                 },

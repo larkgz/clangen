@@ -553,7 +553,7 @@
             {
                 "event_type": "death",
                 "pool": {
-                    "sub_type": [
+                    "subtype": [
                         "murder"
                     ],
                     "event_id": [],
@@ -12160,7 +12160,7 @@
             {
                 "event_type": "death",
                 "pool": {
-                    "sub_type": ["murder"]
+                    "subtype": ["murder"]
                 },
                 "moon_delay": [1,3],
                 "involved_cats": {
@@ -12207,7 +12207,7 @@
             {
                 "event_type": "death",
                 "pool": {
-                    "sub_type": ["murder"]
+                    "subtype": ["murder"]
                 },
                 "moon_delay": [1,3],
                 "involved_cats": {
