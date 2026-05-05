@@ -1562,11 +1562,11 @@ def _find_alignment(temper_dict: dict, first_value: int, second_value: int) -> s
         temper = list(temper_dict.values())[2]
 
     if 11 <= second_value:
-        temper = temper[2]
+        temper = temper[0]
     elif 7 <= second_value:
         temper = temper[1]
     else:
-        temper = temper[0]
+        temper = temper[2]
 
     return temper
 
