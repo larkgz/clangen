@@ -1210,6 +1210,6 @@ class Patrol:
 #                               PATROL CLASS END                               #
 # ---------------------------------------------------------------------------- #
 
-PATROL_WEIGHT_ADAPTION = constants.PREY_CONFIG["patrol_weight_adaption"]
-PATROL_BALANCE = constants.PREY_CONFIG["patrol_balance"]
-PATROL_PREY_SIZE_ADAPTION = constants.PREY_CONFIG["patrol_prey_size_adaption"]
+PATROL_WEIGHT_ADAPTION = constants.CONFIG["prey"]["patrol_weight_adaption"]
+PATROL_BALANCE = constants.CONFIG["prey"]["patrol_balance"]
+PATROL_PREY_SIZE_ADAPTION = constants.CONFIG["prey"]["patrol_prey_size_adaption"]
