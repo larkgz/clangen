@@ -127,3 +127,11 @@ feeding_order = [
     2_prey_class_increase = 3
     3_prey_class_increase = 2
     4_prey_class_increase = 1
+
+# sets other prey sizes that the prey size CAN be set to, if "preferred" by the game.
+[patrol_prey_size_adaption]
+    very_small = ["small"]
+    small = ["very_small"]
+    medium = ["small", "large"]
+    large = ["huge"]
+    huge = "large"

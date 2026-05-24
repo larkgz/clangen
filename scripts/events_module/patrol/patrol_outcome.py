@@ -819,11 +819,18 @@ class PatrolOutcome:
             "huge": basic_amount * 3.2,
         }
 
+        preferred_prey_size = patrol.preferred_prey_size
+        print(f"Preferred prey size: {preferred_prey_size}")
+        prey_size_adaptions = constants.PREY_CONFIG["patrol_prey_size_adaption"]
+
         used_tag = None
         for tag in self.prey:
             basic_amount = prey_types.get(tag)
             if basic_amount is not None:
                 used_tag = tag
+                if preferred_prey_size in prey_size_adaptions[used_tag]:
+                    print(f"prey size set to {preferred_prey_size} from {used_tag}")
+                    used_tag = preferred_prey_size
                 break
         else:
             print(f"{self.prey} - no prey amount tags in prey property")
@@ -866,7 +873,7 @@ class PatrolOutcome:
         results = ""
         if total_amount > 0:
             total_amount = round(total_amount, 2)
-            print(f"PREY ADDED: {total_amount}")
+            print(f"PREY ADDED: {total_amount} ({used_tag})")
             game.freshkill_event_list.append(
                 f"{total_amount} pieces of prey were caught on a patrol."
             )

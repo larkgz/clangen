@@ -54,6 +54,7 @@ When adding new patrols, use \n to add a paragraph break in the text
 
 class Patrol:
     used_patrols = []
+    preferred_prey_size = None
 
     def __init__(self):
         self.patrol_event: Optional[PatrolEvent] = None
@@ -1126,7 +1127,12 @@ class Patrol:
         prey_size_random_weights = PATROL_BALANCE[biome][season]
 
         chosen_prey_size = choices(prey_size, weights=prey_size_random_weights)[0]
-        print(f"chosen filter prey size: {chosen_prey_size}")
+
+        Patrol.preferred_prey_size = chosen_prey_size
+        print(f"preferred prey size: {chosen_prey_size}")
+
+        possible_prey_sizes = [chosen_prey_size]
+        possible_prey_sizes.extend(PATROL_PREY_SIZE_ADAPTION[chosen_prey_size])
 
         # filter all possible patrol depending on the needed prey size
         for patrol in possible_patrols:
@@ -1149,7 +1155,7 @@ class Patrol:
                 if amount >= max_occurrences:
                     most_prey_size = size
 
-            if chosen_prey_size == most_prey_size:
+            if most_prey_size in possible_prey_sizes:
                 filtered_patrols.append(patrol)
             elif self.debug_patrol and self.debug_patrol == patrol.patrol_id:
                 print(
@@ -1198,3 +1204,4 @@ class Patrol:
 
 PATROL_WEIGHT_ADAPTION = constants.PREY_CONFIG["patrol_weight_adaption"]
 PATROL_BALANCE = constants.PREY_CONFIG["patrol_balance"]
+PATROL_PREY_SIZE_ADAPTION = constants.PREY_CONFIG["patrol_prey_size_adaption"]
