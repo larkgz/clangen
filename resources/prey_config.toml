@@ -134,4 +134,4 @@ feeding_order = [
     small = ["very_small"]
     medium = ["small", "large"]
     large = ["huge"]
-    huge = "large"
+    huge = ["large"]
