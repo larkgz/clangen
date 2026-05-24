@@ -820,7 +820,6 @@ class PatrolOutcome:
         }
 
         preferred_prey_size = patrol.preferred_prey_size
-        print(f"Preferred prey size: {preferred_prey_size}")
         prey_size_adaptions = constants.PREY_CONFIG["patrol_prey_size_adaption"]
 
         used_tag = None
