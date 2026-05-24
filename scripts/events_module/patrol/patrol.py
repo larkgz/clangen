@@ -1128,6 +1128,7 @@ class Patrol:
 
         chosen_prey_size = choices(prey_size, weights=prey_size_random_weights)[0]
 
+        # have to use the shared class one so all the patrols know about it, not just one
         Patrol.preferred_prey_size = chosen_prey_size
         print(f"preferred prey size: {chosen_prey_size}")
 
