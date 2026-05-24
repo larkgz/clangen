@@ -1131,8 +1131,10 @@ class Patrol:
         Patrol.preferred_prey_size = chosen_prey_size
         print(f"preferred prey size: {chosen_prey_size}")
 
-        possible_prey_sizes = [chosen_prey_size]
-        possible_prey_sizes.extend(PATROL_PREY_SIZE_ADAPTION[chosen_prey_size])
+        # each prey size has additional "nearby" prey sizes that the outcome
+        # can be forced into if it's the chosen_prey_size
+        chosen_prey_sizes = [chosen_prey_size]
+        chosen_prey_sizes.extend(PATROL_PREY_SIZE_ADAPTION[chosen_prey_size])
 
         # filter all possible patrol depending on the needed prey size
         for patrol in possible_patrols:
@@ -1155,7 +1157,8 @@ class Patrol:
                 if amount >= max_occurrences:
                     most_prey_size = size
 
-            if most_prey_size in possible_prey_sizes:
+            # if the prey size is a "nearby" prey size or the correct one
+            if most_prey_size in chosen_prey_sizes:
                 filtered_patrols.append(patrol)
             elif self.debug_patrol and self.debug_patrol == patrol.patrol_id:
                 print(
