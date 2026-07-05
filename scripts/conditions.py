@@ -15,7 +15,7 @@ from scripts.game_structure import game
 
 def amount_clanmembers_covered(all_cats, amount_per_med) -> int:
     """
-    number of clan members the meds can treat
+    number of clan members the meds can treat?
     """
 
     medicine_cats = [
